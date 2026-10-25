@@ -147,7 +147,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .track span em{color:var(--mulberry)}
 
 /* ---------- statement ---------- */
-.statement{padding-block:18vh 14vh}
+.statement{padding-block:18vh 12vh}
 .statement .wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.7fr);gap:56px;align-items:start}
 .big{font:400 clamp(32px,3.8vw,58px)/1.18 var(--serif);text-wrap:pretty}
 .big .w{opacity:.14;transition:opacity .3s}
@@ -196,13 +196,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .peek-dot.on{transform:scale(1)}
 
 /* visuals (meaningful, from real numbers) */
-.vz{position:relative;display:grid;place-items:center;padding:28px;height:100%}
+.vz{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px 22px 18px;height:100%;min-height:100%}
+.vz>:first-child{margin-top:auto}
 .vz.t-mul{background:var(--mulberry);color:var(--ivory)}
 .vz.t-lav{background:var(--lavender);color:var(--ink)}
 .vz.t-ink{background:var(--ink);color:var(--ivory)}
 .vz.t-rose{background:#EBCFC8;color:var(--ink)}
 .vz.t-pap{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
-.vz .cap{position:absolute;left:22px;bottom:18px;right:22px;font:600 11px/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.vz .cap{position:static;align-self:stretch;margin-top:auto;font:600 11px/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.7}
 .vmeter{width:min(320px,86%);display:grid;gap:14px}
 .vmeter .r{display:grid;grid-template-columns:56px minmax(0,1fr) 58px;gap:10px;align-items:center;font:600 12.5px/1 var(--sans)}
 .vmeter .b{height:14px;border-radius:99px;background:rgba(247,243,236,.18);overflow:hidden}
@@ -274,16 +275,32 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* ---------- method ---------- */
 .method{padding-block:14vh 8vh}
-.method h2{font-size:clamp(44px,6vw,96px);line-height:.98;margin-bottom:40px}
-.method h2 em{color:var(--mulberry)}
-.mrow{display:grid;grid-template-columns:90px minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:baseline;padding:30px 0;border-top:1px solid var(--line);transition:background .4s}
-.mrow:last-child{border-bottom:1px solid var(--line)}
-.mrow .n{font:400 20px/1 var(--serif);color:var(--rose)}
-.mrow h3{font-size:clamp(34px,3.6vw,56px);line-height:1;transition:transform .6s var(--out),color .4s}
-.mrow:hover h3{transform:translateX(12px);color:var(--mulberry)}
-.mrow .d{display:grid;gap:10px;color:var(--soft)}
-.mrow .d b{font:600 11px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mulberry)}
-.mrow .d span{color:var(--ink)}
+.mhead{display:flex;justify-content:space-between;align-items:end;gap:16px 32px;flex-wrap:wrap;margin-bottom:36px}
+.mhead h2{font-size:clamp(44px,6vw,96px);line-height:.98;max-width:11em}
+.mhead h2 em{color:var(--mulberry)}
+.mhead p{color:var(--soft);max-width:34ch}
+.traits{border-top:1px solid var(--ink)}
+.trait{border-bottom:1px solid var(--line)}
+.th{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:8px 24px;align-items:baseline;width:100%;text-align:left;padding:30px 0 26px;cursor:pointer}
+.th .n{font:400 20px/1 var(--serif);color:var(--rose)}
+.th .tt{display:grid;gap:10px}
+.th h3{font-size:clamp(30px,3.4vw,52px);line-height:1.04;transition:transform .6s var(--out),color .4s}
+.th .q{color:var(--soft);font-size:17px;max-width:60ch}
+.th .pm{display:inline-flex;align-items:center;gap:10px;font:600 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mulberry);white-space:nowrap}
+.th .pm i{font-style:normal;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--mulberry);font-size:17px;letter-spacing:0;transition:transform .45s var(--out),background .3s,color .3s}
+.tp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--out)}
+.tp>div{overflow:hidden;display:grid;gap:12px;padding-left:94px;max-width:900px}
+.tp p{font:400 clamp(19px,1.6vw,23px)/1.45 var(--serif);color:var(--ink);padding-top:2px}
+.tp>div>:last-child{margin-bottom:30px}
+.plink{justify-self:start;font:600 14px/1 var(--sans);color:var(--mulberry);border-bottom:1px solid currentColor;padding-bottom:4px}
+.trait.open .tp{grid-template-rows:1fr}
+.trait.open .th h3{color:var(--mulberry)}
+.trait.open .th .pm i{transform:rotate(45deg);background:var(--mulberry);color:var(--ivory)}
+@media (hover:hover) and (pointer:fine){
+  .trait:hover .tp{grid-template-rows:1fr}
+  .trait:hover .th h3{transform:translateX(10px);color:var(--mulberry)}
+  .trait:hover .th .pm i{transform:rotate(45deg);background:var(--mulberry);color:var(--ivory)}
+}
 
 /* ---------- details ---------- */
 .details{padding-block:8vh 14vh}
@@ -294,8 +311,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .xrow time{font:500 13.5px/1.6 var(--sans);color:var(--soft);font-variant-numeric:tabular-nums}
 .xrow b{font-weight:600;display:block}
 .xrow span{font-size:14.5px;color:var(--soft)}
-.kit{display:grid;gap:18px}
-.kit>div{display:grid;gap:8px}
+.skills{padding-block:0 12vh}
+.skills-head{display:flex;justify-content:space-between;align-items:end;gap:16px 24px;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.skills-head h2{font-size:clamp(48px,7vw,110px);line-height:.95}
+.skills-head p{color:var(--soft);max-width:36ch}
+.kit-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:32px 28px}
+.kit-grid>div{display:grid;gap:12px;align-content:start}
+.kit-grid .chips span{font-size:14px;padding:9px 12px;transition:border-color .3s,color .3s,background .3s}
+.kit-grid .chips span:hover{border-color:var(--mulberry);color:var(--mulberry);background:var(--ivory)}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
 .chips span{font:500 13px/1 var(--sans);padding:8px 11px;border-radius:999px;border:1px solid var(--line);background:var(--paper)}
 
@@ -304,7 +327,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .curve div{position:absolute;left:-10%;right:-10%;top:0;height:var(--ch,12vh);background:var(--ivory);border-radius:0 0 50% 50%;box-shadow:0 30px 60px -40px rgba(37,30,41,.4)}
 .contact{background:var(--ink);color:var(--ivory);padding-top:22vh;position:relative;overflow:hidden}
 .contact .wrap{display:grid;gap:7vh}
-.contact h2{font-size:clamp(56px,8.6vw,140px);line-height:.95;display:flex;align-items:center;gap:.25em;flex-wrap:wrap}
+.contact h2{font-size:clamp(46px,6.6vw,110px);line-height:1;max-width:11em;display:flex;align-items:center;gap:.25em;flex-wrap:wrap}
 .contact h2 .av{width:.9em;height:.9em;border-radius:50%;overflow:hidden;flex:none;display:inline-block}
 .contact h2 .av img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .contact h2 em{color:var(--lavender)}
@@ -316,6 +339,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .contact .circle:hover{color:var(--ink)}
 .pills{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding-block:6vh calc(9vh + env(safe-area-inset-bottom,0px))}
 .addr{display:grid;gap:8px}
+.plinks{display:flex;flex-wrap:wrap;gap:12px}
 .addr .k{color:color-mix(in srgb,var(--ivory) 50%,transparent)}
 .addr .mail{font:400 clamp(22px,2.4vw,34px)/1.2 var(--serif);user-select:all;overflow-wrap:anywhere}
 .contact .pill{border-color:rgba(247,243,236,.35)}
@@ -367,6 +391,62 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .iter span+span{margin-left:22px;position:relative}
 .iter span+span::before{content:"";position:absolute;right:100%;width:22px;height:1px;background:var(--lavender)}
 .pull{padding:8vh 0;border-block:1px solid var(--line);margin-bottom:12vh}
+.course{padding-block:2vh 14vh}
+.course-head{display:flex;justify-content:space-between;align-items:end;gap:16px 24px;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.course-head h2{font-size:clamp(44px,6vw,96px);line-height:.95}
+.course-head p{color:var(--soft);max-width:40ch}
+.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.cc{display:grid;grid-template-rows:auto 1fr;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--paper);transition:transform .6s var(--out),box-shadow .6s,border-color .6s}
+.cc:hover{transform:translateY(-6px);border-color:var(--lavender);box-shadow:0 34px 70px -44px rgba(37,30,41,.5)}
+.cv{display:grid;place-items:center;align-content:center;gap:14px;min-height:220px;padding:28px}
+.cv.t-lav{background:var(--lavender);color:var(--ink)}
+.cv.t-rose{background:#EBCFC8;color:var(--ink)}
+.cflow{display:flex;align-items:center;gap:18px;font:400 clamp(34px,3.6vw,52px)/1 var(--serif)}
+.cflow i{font-style:normal;font-family:var(--sans);font-size:.6em;color:var(--mulberry);transition:transform .5s var(--out)}
+.cc:hover .cflow i{transform:translateX(6px)}
+.cv small{font:600 11.5px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.cbody{display:grid;gap:14px;align-content:start;padding:28px}
+.cmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:600 12px/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase}
+.cmeta .role{color:var(--mulberry)}
+.cmeta .gh{color:var(--soft);letter-spacing:.04em;text-transform:none;font-size:13.5px}
+.cc:hover .cmeta .gh{color:var(--ink)}
+.cbody h3{font-size:clamp(26px,2.4vw,34px);line-height:1.1}
+.cbody p{color:var(--soft);font-size:16px}
+.cbody .mine{color:var(--ink);padding:14px 16px;border-radius:14px;background:var(--ivory);border:1px solid var(--line);font-size:15px}
+.cbody .mine b{display:block;font:600 11px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mulberry);margin-bottom:4px}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tags span{font:500 12.5px/1 var(--sans);padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--lavender) 28%,var(--paper))}
+.versions{padding-bottom:12vh}
+.vhead{display:grid;gap:14px;margin-bottom:40px;max-width:900px}
+.vhead h2{font-size:clamp(36px,4.4vw,66px);line-height:1.05}
+.vhead h2 em{color:var(--mulberry)}
+.vhead p{color:var(--soft)}
+.vgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:start}
+.vlist{display:grid;gap:10px}
+.vrow{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:10px 14px;align-items:center;width:100%;text-align:left;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:var(--paper);transition:background .35s,color .35s,border-color .35s,transform .45s var(--out)}
+button.vrow:hover{border-color:var(--lavender);transform:translateX(4px)}
+.vrow .tg{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:600 13px/1 var(--sans);border:1px solid var(--lavender);color:var(--mulberry);background:var(--ivory)}
+.vrow .t{font:400 21px/1.2 var(--serif)}
+.vrow .tm{font:600 14px/1 var(--sans);font-variant-numeric:tabular-nums;color:var(--soft)}
+.vrow .bar{grid-column:2/4;height:6px;border-radius:99px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
+.vrow .bar i{display:block;height:100%;min-width:4px;border-radius:99px;background:var(--lavender)}
+.vrow.before{background:transparent;border-style:dashed}
+.vrow.before .tg{border-style:dashed;color:var(--soft)}
+.vrow.before .bar i{background:var(--rose)}
+.vrow.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.vrow.on .tg{background:var(--lavender);color:var(--ink);border-color:var(--lavender)}
+.vrow.on .tm{color:var(--lavender)}
+.vrow.on .bar{background:rgba(247,243,236,.15)}
+.vpanel{position:sticky;top:110px;padding:32px;border-radius:24px;background:var(--ivory);border:1px solid var(--line);display:grid;gap:18px;animation:rise .6s var(--out) both;box-shadow:0 30px 60px -45px rgba(37,30,41,.45)}
+.vpanel .vtop{display:flex;justify-content:space-between;align-items:center}
+.vpanel .tg{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ivory);background:var(--mulberry);padding:7px 12px;border-radius:999px}
+.vpanel .tm{font:400 28px/1 var(--serif);color:var(--mulberry)}
+.vpanel h3{font-size:clamp(28px,2.6vw,38px);line-height:1.1}
+.vsec{display:grid;gap:6px;padding-top:14px;border-top:1px solid var(--line)}
+.vsec p{font-size:16.5px;line-height:1.6}
+.vsec:last-of-type p{color:var(--soft)}
+.vnext{justify-self:start;margin-top:4px;padding:12px 18px;border-radius:999px;border:1px solid var(--ink);font:600 14px/1 var(--sans);transition:background .3s,color .3s}
+.vnext:hover{background:var(--ink);color:var(--ivory)}
 .pull p{font:400 clamp(34px,4.4vw,68px)/1.15 var(--serif);font-style:italic;color:var(--mulberry);max-width:20em}
 .nextpj{display:grid;justify-items:center;text-align:center;gap:18px;padding-block:10vh 16vh}
 .nextpj h2{font-size:clamp(48px,8vw,128px);line-height:.95;transition:color .4s}
@@ -389,6 +469,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .row{grid-template-columns:minmax(0,1fr) auto}
   .row .cat{display:none}
   .langs,.details .wrap{grid-template-columns:1fr}
+  .vgrid{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+  .vpanel{position:static}
+  .kit-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media (max-width:760px){
   .nav{display:none}
@@ -401,12 +485,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .marquee{padding-block:2vh 3vh}
   .row{grid-template-columns:1fr;gap:14px;padding:30px 0}
   .row .res{text-align:left}
-  .row .thumb{display:block;height:200px;border-radius:18px;overflow:hidden}
+  .row .thumb{display:block;min-height:220px;border-radius:18px;overflow:hidden}
+  .row .thumb .vz{min-height:220px}
+  .card .vz{aspect-ratio:auto;min-height:260px}
+  .fab{width:54px;height:54px}
+  .fab i{width:20px}
   .rows:hover .row{opacity:1}
   .grid{grid-template-columns:1fr}
-  .mrow{grid-template-columns:44px minmax(0,1fr)}
-  .mrow .d{grid-column:2}
+  .th{grid-template-columns:40px minmax(0,1fr);padding:24px 0 20px}
+  .th .pm{grid-column:2;justify-self:start}
+  .tp>div{padding-left:64px}
   .xrow{grid-template-columns:1fr}
+  .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 18px}
+  .kit-grid .cert{grid-column:1/-1}
+  .skills{padding-block:0 8vh}
   .cl,.pj-meta{grid-template-columns:1fr}
   .ch{grid-template-columns:1fr;gap:16px}
   .cta-line .mag{position:static;translate:none;justify-self:end;margin-top:28px}
@@ -442,7 +534,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <aside class="drawer" id="drawer" aria-label="Menu">
   <div><span class="k">Navigation</span>
     <nav><a href="#/" data-route="/">Home</a><a href="#work" data-scroll>Work</a><a href="#story" data-scroll>About</a><a href="#contact" data-scroll>Contact</a></nav></div>
-  <div><span class="k">Socials</span><div class="soc"><a class="ul" href="https://www.linkedin.com/in/dhruthi-gopannagari/" target="_blank" rel="noopener">LinkedIn</a><a class="ul" href="#contact" data-scroll>Email</a></div></div>
+  <div><span class="k">Socials</span><div class="soc"><a class="ul" href="https://www.linkedin.com/in/dhruthi-gopannagari/" target="_blank" rel="noopener">LinkedIn</a><a class="ul" href="https://github.com/Dhruthig" target="_blank" rel="noopener">GitHub</a><a class="ul" href="#contact" data-scroll>Email</a></div></div>
 </aside>
 
 <div class="peek" id="peek" aria-hidden="true"><div class="reel" id="reel"></div></div>
@@ -480,6 +572,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     </div>
   </section>
 
+  <section class="skills" id="skills">
+    <div class="wrap">
+      <div class="skills-head rv"><h2>Toolkit</h2><p>The tools I use most, and the methods behind them.</p></div>
+      <div class="kit-grid rv">
+        <div><span class="k">Data &amp; querying</span><div class="chips"><span>SQL</span><span>Redshift</span><span>Snowflake</span><span>Databricks</span><span>Oracle SQL</span></div></div>
+        <div><span class="k">Reporting &amp; BI</span><div class="chips"><span>Tableau Desktop, Server &amp; Prep</span><span>Tableau APIs</span><span>Tableau Server Client</span><span>Tableau MCP</span><span>Power BI</span><span>Apache Superset</span><span>Excel</span></div></div>
+        <div><span class="k">Automation</span><div class="chips"><span>Python</span><span>Pandas</span><span>Streamlit</span><span>ETL</span><span>Git</span><span>Claude Code</span></div></div>
+        <div><span class="k">Methods</span><div class="chips"><span>Anomaly detection</span><span>Z-scores</span><span>KPI development</span><span>Root cause analysis</span><span>Data storytelling</span></div></div>
+        <div class="cert"><span class="k">Certifications</span><div class="chips"><span>Lean Six Sigma Green Belt</span><span>Tableau Desktop Specialist</span><span>Microsoft Technology Associate, Database Fundamentals</span></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="work" id="work">
     <div class="wrap">
       <div class="work-head rv">
@@ -490,6 +595,34 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
         <div class="colhead k"><span>Project</span><span>Focus</span><span style="text-align:right">Result</span></div>
         <div class="rows" id="rows"></div>
         <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="course" id="coursework">
+    <div class="wrap">
+      <div class="course-head rv"><h2>From my coursework</h2><p>Two team projects from my MS in Business Analytics at Arizona State University. The code is public on GitHub.</p></div>
+      <div class="cgrid">
+        <a class="cc rv" href="https://github.com/Dhruthig/Capstone_Project" target="_blank" rel="noopener">
+          <div class="cv t-lav"><span class="cflow"><b>Reviews</b><i>→</i><b>Themes</b></span><small>~5,400 reviews · ~1,900 tweets</small></div>
+          <div class="cbody">
+            <div class="cmeta"><span class="role">Capstone · Team lead</span><span class="gh">View on GitHub ↗</span></div>
+            <h3>What customers are really saying</h3>
+            <p>A four-person capstone on how customers talk about Upgrade. We scraped about 5,400 Credit Karma reviews and 1,900 tweets with Python, then ran sentiment analysis (TextBlob, VADER, DistilBERT), emotion analysis (XLNet), and transformer-based topic modeling with BERTopic, using GPT to label the topics. About 85% of the Credit Karma reviews were positive, and the themes fed Power BI dashboards.</p>
+            <p class="mine"><b>My part</b>I led the project, owned the NLP and topic modeling, chose the approaches, and made sure the code did what it was meant to.</p>
+            <div class="tags"><span>Python</span><span>Selenium</span><span>BERTopic</span><span>DistilBERT</span><span>Sentiment analysis</span><span>Power BI</span></div>
+          </div>
+        </a>
+        <a class="cc rv" href="https://github.com/Dhruthig/Posture_Recognition" target="_blank" rel="noopener">
+          <div class="cv t-rose"><span class="cflow"><b>Photo</b><i>→</i><b>Pose</b></span><small>47 yoga poses · 93% accuracy</small></div>
+          <div class="cbody">
+            <div class="cmeta"><span class="role">Team project</span><span class="gh">View on GitHub ↗</span></div>
+            <h3>FormCoach: naming the pose from a photo</h3>
+            <p>FormCoach helps people get their form right in yoga and at the gym: upload a photo of a pose or exercise, the model identifies it, and you're pointed to a tutorial for proper form. The yoga model (PyTorch, ResNet-50 transfer learning) recognizes 47 poses with 93% validation accuracy and a 0.93 F1 score. The workout model (TensorFlow, InceptionV3) covers 22 exercises.</p>
+            <p class="mine"><b>My part</b>I led testing for pose coverage, tracking missing poses and key points so the model covered every pose, and helped build the final presentation.</p>
+            <div class="tags"><span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>Transfer learning</span><span>Computer vision</span></div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -511,12 +644,32 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
   <section class="method" id="method">
     <div class="wrap">
-      <h2 class="rv">How I <em>work.</em></h2>
-      <div class="rv">
-        <div class="mrow"><span class="n">01</span><h3>Understand</h3><div class="d"><p>Turn a loosely defined question into a clear problem, with the people who'll act on the answer.</p><b>In practice</b><span>As the point of contact for the solutions I build, I help stakeholders find the right report for their question, or build what's missing.</span></div></div>
-        <div class="mrow"><span class="n">02</span><h3>Build</h3><div class="d"><p>Write the SQL, Python and dashboards myself, bringing data together from several systems.</p><b>In practice</b><span>Reconciliation reporting that combines Redshift, Snowflake and Databricks data in one place.</span></div></div>
-        <div class="mrow"><span class="n">03</span><h3>Validate</h3><div class="d"><p>Check results against the source and test with stakeholders before anything goes live.</p><b>In practice</b><span>The balance checks compare every product against its source records before anyone relies on them.</span></div></div>
-        <div class="mrow"><span class="n">04</span><h3>Improve</h3><div class="d"><p>Stay with it after release, and turn feedback into the next version.</p><b>In practice</b><span>Four-plus iterations took balance validation from four hours to two minutes.</span></div></div>
+      <div class="mhead rv"><h2>What working with me <em>looks like.</em></h2><p>Six things you can count on, each with the proof behind it. Hover or tap to see it.</p></div>
+      <div class="traits rv">
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp0"><span class="n">01</span><span class="tt"><h3>Vague in, clear out</h3><span class="q">Most questions arrive half-formed. I turn them into something specific enough to answer.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp0"><div><p>I proposed and built a Tableau engagement analysis after seeing hundreds of reports with no clear picture of which were being used. Using 11 months of viewing data, every workbook got a high, moderate, low or dormant rating to guide reviews.</p></div></div>
+        </div>
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp1"><span class="n">02</span><span class="tt"><h3>I don't ship numbers I haven't checked</h3><span class="q">If someone's going to make a decision on it, I've validated it first.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp1"><div><p>Before investor classification moved to a new mapping source, I derived investor types from the available data and surfaced the mismatches against Accounting's classifications for review.</p></div></div>
+        </div>
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp2"><span class="n">03</span><span class="tt"><h3>If I built it, I own it</h3><span class="q">Shipping is the middle, not the end.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp2"><div><p>I'm the point of contact for the solutions I build. I maintain them, support the people who use them, and turn requests and feedback into enhancements.</p></div></div>
+        </div>
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp3"><span class="n">04</span><span class="tt"><h3>I keep asking what's still manual</h3><span class="q">A solution that works is a starting point.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp3"><div><p>Balance validation went through four versions, from four hours by hand to a two-minute automated check.</p><a class="plink" href="#/work/balances" data-route="/work/balances">See all four versions →</a></div></div>
+        </div>
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp4"><span class="n">05</span><span class="tt"><h3>I learn the tool the problem needs</h3><span class="q">I pick up new tools when they earn their place.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp4"><div><p>For balance validation, I moved from Tableau Server Client to Tableau MCP, and built the whole thing with Claude Code.</p></div></div>
+        </div>
+        <div class="trait">
+          <button class="th" aria-expanded="false" aria-controls="tp5"><span class="n">06</span><span class="tt"><h3>I make data make sense to people</h3><span class="q">The work isn't done until the people using it understand it, and the best answers come from working it out together.</span></span><span class="pm" aria-hidden="true">Proof<i>+</i></span></button>
+          <div class="tp" id="tp5"><div><p>I built the Deposit Programming alerts, presented them to senior executives, and shaped later versions around their feedback. At ASU, I led a four-person capstone team.</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -531,19 +684,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
         <div class="xrow"><time>Jun 2023 – Oct 2023</time><div><b>Research Assistant, Data Analyst</b><span>Arizona State University</span></div></div>
         <div class="xrow"><time>Jan 2023 – May 2023</time><div><b>Business Intelligence Analyst Intern</b><span>Upgrade, Inc. · Operational Analytics</span></div></div>
         <div class="xrow"><time>Nov 2020 – Jun 2022</time><div><b>Application Development Associate, Analyst</b><span>Accenture</span></div></div>
-        <h3 style="margin-top:48px">Education</h3>
-        <div class="xrow"><time>Aug 2022 – May 2023</time><div><b>M.S., Business Analytics · GPA 3.97</b><span>Arizona State University, W. P. Carey School of Business</span></div></div>
-        <div class="xrow"><time>Aug 2016 – Sep 2020</time><div><b>B.Tech., Electrical &amp; Electronics Engineering</b><span>Jawaharlal Nehru Technological University</span></div></div>
       </div>
       <div class="rv">
-        <h3>Toolkit</h3>
-        <div class="kit">
-          <div><span class="k">Data &amp; querying</span><div class="chips"><span>SQL</span><span>Redshift</span><span>Snowflake</span><span>Databricks</span><span>Oracle SQL</span></div></div>
-          <div><span class="k">Reporting &amp; BI</span><div class="chips"><span>Tableau Desktop, Server &amp; Prep</span><span>Tableau APIs</span><span>Power BI</span><span>Apache Superset</span><span>Excel</span></div></div>
-          <div><span class="k">Automation</span><div class="chips"><span>Python</span><span>Pandas</span><span>ETL</span><span>Git</span><span>Claude Code</span></div></div>
-          <div><span class="k">Methods</span><div class="chips"><span>Anomaly detection</span><span>Z-scores</span><span>KPI development</span><span>Root cause analysis</span><span>Data storytelling</span></div></div>
-          <div><span class="k">Certifications</span><div class="chips"><span>Lean Six Sigma Green Belt</span><span>Tableau Desktop Specialist</span><span>Microsoft Technology Associate, Database Fundamentals</span></div></div>
-        </div>
+        <h3>Education</h3>
+        <div class="xrow"><time>Aug 2022 – May 2023</time><div><b>M.S., Business Analytics · GPA 3.97</b><span>Arizona State University, W. P. Carey School of Business</span></div></div>
+        <div class="xrow"><time>Aug 2016 – Sep 2020</time><div><b>B.Tech., Electrical &amp; Electronics Engineering</b><span>Jawaharlal Nehru Technological University</span></div></div>
       </div>
     </div>
   </section>
@@ -562,11 +707,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <div class="curve" id="curve"><div></div></div>
 <footer class="contact" id="contact">
   <div class="wrap">
-    <h2>Let's work <em>together.</em></h2>
+    <h2>Got something that's still <em>manual?</em> Let's talk.</h2>
     <div class="cta-line"><hr><a class="mag" id="getInTouch" href="mailto:dhruthigopannagari55@gmail.com"><span class="circle"><span>Get in touch</span></span></a></div>
     <div class="pills">
       <div class="addr"><span class="k">Email</span><span class="mail">dhruthigopannagari55@gmail.com</span></div>
-      <a class="pill mag" href="https://www.linkedin.com/in/dhruthi-gopannagari/" target="_blank" rel="noopener"><span>LinkedIn ↗</span></a>
+      <div class="plinks"><a class="pill mag" href="https://www.linkedin.com/in/dhruthi-gopannagari/" target="_blank" rel="noopener"><span>LinkedIn ↗</span></a><a class="pill mag" href="https://github.com/Dhruthig" target="_blank" rel="noopener"><span>GitHub ↗</span></a></div>
     </div>
   </div>
 </footer>
@@ -624,10 +769,28 @@ cloudOut.textContent = "నమస్కారం";
 /* ---------- projects ---------- */
 const PROJECTS = [
   { id:"balances", title:"Month-end balance validation", focus:"Trustworthy numbers", result:"4 hrs → 2 min", tone:"t-mul", viz:"meter",
-    tag:"The project I'm proudest of", tools:"Python, SQL, Redshift, HTML",
+    tag:"The project I'm proudest of", tools:"Python, SQL, Redshift, Tableau Server Client, Tableau MCP, Streamlit, Claude Code",
     before:"Every month-end, principal balances for six loan products were validated against source records by hand. It took about four hours, and it was my job.",
-    built:"Automated checks in Python and SQL using data from Redshift, plus an interactive HTML page where only the exceptions show up for review.",
-    builtNote:"I built it for my own work, then kept re-engineering it through at least four iterations until it was fully automated.",
+    built:"A fully automated check in Python and SQL that pulls each product's balance from Tableau, compares it with source data from Redshift, refreshes stale extracts on its own, and presents the results in a Streamlit app.",
+    builtNote:"I built it for my own month-end work, entirely with Claude Code, and kept re-engineering it through four versions until it was fully automated.",
+    versions:[
+      {v:"v1", title:"Get the numbers out", time:"~30 min", w:12.5,
+       problem:"Every product's workbook had different sheets and views, so there was no single place to read the balance.",
+       built:"A dedicated view in each workbook showing just the total principal balance. Python with Tableau Server Client pulled those values from every workbook, with context like current vs. prior month-end, and a SQL query brought the source balances into the same spreadsheet.",
+       left:"Everything was in one place, but still compared by eye."},
+      {v:"v2", title:"Let logic do the comparison", time:"~30 min", w:12.5,
+       problem:"Comparing every product line by line was still manual.",
+       built:"Switched the connection to Tableau MCP, and added flags and logic that mark each product as a match or a mismatch.",
+       left:"I still had to open the spreadsheet and tally the results."},
+      {v:"v3", title:"Fix it, not just flag it", time:"~15 min", w:6.25,
+       problem:"A mismatch often traced back to a stale extract, which still had to be chased down.",
+       built:"The process checks each report's last extract time and pushes a refresh remotely through Tableau MCP. I also added anomaly detection: not just whether the two sides tie, but whether each balance is what I'd expect for that product.",
+       left:"A working end-to-end process, but not yet fully automated."},
+      {v:"v4", title:"Fully automated, built for review", time:"~2 min", w:.83,
+       problem:"The last manual steps were running it and reading the output.",
+       built:"Everything automated in Python, with a Streamlit app that shows a green or red flag for each product and lets me dig into the exceptions.",
+       left:"The whole check runs in about two minutes."}
+    ],
     after:"4 hours → 2 minutes", afterNote:"99.2% less time, across all six products.",
     pull:"Finding room to improve a solution that already works is where my curiosity lives." },
   { id:"loan-tapes", title:"Loan tape monitoring", focus:"On-time data", result:"Hourly checks → automatic", tone:"t-ink", viz:"notify",
@@ -656,7 +819,7 @@ function viz(p, big){
   if (p.viz === "meter") inner = `<div class="vmeter"><div class="hd">4 hrs → 2 min</div><div class="r"><span>Before</span><span class="b"><i style="${big ? "" : "width:100%"}" data-w="100"></i></span><span>240 min</span></div><div class="r"><span>After</span><span class="b"><i style="${big ? "" : "width:.83%"}" data-w=".83"></i></span><span>2 min</span></div></div>`;
   if (p.viz === "notify") inner = `<ol class="vnotify"><li><b>Watching</b>for each loan tape delivery</li><li><b>Running late?</b>Teams get a heads-up</li><li><b>Data lands</b>Reports refresh automatically</li><li><b>Verified</b>Teams notified it's ready</li></ol>`;
   if (p.viz === "tiers") inner = `<div class="vtiers"><div class="wk"><span>Weekly</span>Overdue refreshes flagged for review</div><div class="tiers"><span>High</span><span>Moderate</span><span>Low</span><span>Dormant</span></div><small>Engagement from 11 months of viewing data</small></div>`;
-  if (p.viz === "formula") inner = `<p class="vformula"><span>z = (x − x̂) / σ</span><small>Level &amp; Transition Z-scores · dynamic control bands</small></p>`;
+  if (p.viz === "formula") inner = `<p class="vformula"><span>z = (x − μ) / σ</span><small>Level &amp; Transition Z-scores · dynamic control bands</small></p>`;
   if (p.viz === "files") inner = `<div class="vfiles"><span class="f">XLS</span><span class="f">PDF</span><span class="to">→</span><span class="tb">${"<i></i>".repeat(12)}</span></div>`;
   if (p.viz === "type") inner = `<p class="vtype">Seasonal <em>≠</em> unusual<small>Rolling 12-month baseline</small></p>`;
   const caps = {meter:"Month-end validation time", notify:"From hourly checks to automatic heads-ups", tiers:"~400 reports and flows, monitored weekly", files:"Excel and PDF → one standard format", formula:"Rolling 365-day seasonal baseline"};
@@ -745,6 +908,12 @@ addEventListener("scroll", () => fab.classList.toggle("show", scrollY > innerHei
   addEventListener("pointerup", () => { down = false; lane.classList.remove("dragging"); });
 })();
 
+/* ---------- work-style traits: tap to reveal proof ---------- */
+document.querySelectorAll(".trait .th").forEach(b => b.addEventListener("click", () => {
+  const t = b.closest(".trait"), open = !t.classList.contains("open");
+  t.classList.toggle("open", open); b.setAttribute("aria-expanded", open);
+}));
+
 /* ---------- copy email ---------- */
 function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 2200); }
 $("#getInTouch").addEventListener("click", async () => {
@@ -778,10 +947,35 @@ function renderProject(p){
       <div class="ch"><span class="k"><b>02</b>What I built</span><div><p>${esc(p.built)}</p>${p.builtNote ? `<p class="note">${esc(p.builtNote)}</p><div class="iter" aria-label="At least four iterations"><span>v1</span><span>v2</span><span>v3</span><span>v4</span></div>` : ""}</div></div>
       <div class="ch"><span class="k"><b>03</b>After</span><div><p class="stat">${esc(p.after)}</p><p class="note">${esc(p.afterNote)}</p></div></div>
     </div>
+    ${p.versions ? versionsHTML(p) : ""}
     ${p.pull ? `<div class="wrap"><div class="pull"><p>“${esc(p.pull)}”</p></div></div>` : ""}
     <div class="wrap nextpj"><span class="k">Next project</span><a href="#/work/${nx.id}" data-route="/work/${nx.id}"><h2>${nx.title}</h2></a><a href="#/work/${nx.id}" data-route="/work/${nx.id}" class="bar" aria-hidden="true" tabindex="-1"><i></i></a></div>`;
   magnetize($("#project"));
+  if (p.versions){ document.querySelectorAll(".vrow[data-ver]").forEach(b => b.onclick = () => { showVersion(p, +b.dataset.ver); if (innerWidth < 1100) document.getElementById("vpanel").scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"}); }); showVersion(p, 0); }
   setTimeout(() => animateVisual($("#project .pj-visual")), 500);
+}
+function versionsHTML(p){
+  return `<section class="versions"><div class="wrap">
+    <div class="vhead"><span class="k">How it evolved</span><h2>Four versions. Each one asked: <em>what's still manual?</em></h2><p>Select a version to see what it fixed, and what it left for the next one.</p></div>
+    <div class="vgrid">
+      <div class="vlist" role="tablist" aria-label="Versions">
+        <div class="vrow before"><span class="tg">—</span><span class="t">By hand</span><span class="tm">4 hrs</span><span class="bar"><i style="width:100%"></i></span></div>
+        ${p.versions.map((x, i) => `<button class="vrow" role="tab" data-ver="${i}"><span class="tg">${x.v}</span><span class="t">${esc(x.title)}</span><span class="tm">${x.time}</span><span class="bar"><i style="width:${x.w}%"></i></span></button>`).join("")}
+      </div>
+      <div class="vpanel" id="vpanel" role="tabpanel" aria-live="polite"></div>
+    </div></div></section>`;
+}
+function showVersion(p, i){
+  const x = p.versions[i];
+  document.querySelectorAll(".vrow[data-ver]").forEach(b => { const on = +b.dataset.ver === i; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
+  const panel = document.getElementById("vpanel"); if (!panel) return;
+  panel.innerHTML = `<div class="vtop"><span class="tg">${x.v}</span><span class="tm">${x.time}</span></div><h3>${esc(x.title)}</h3>
+    <div class="vsec"><span class="k">The problem</span><p>${esc(x.problem)}</p></div>
+    <div class="vsec"><span class="k">What I built</span><p>${esc(x.built)}</p></div>
+    <div class="vsec"><span class="k">${i < p.versions.length - 1 ? "What it left for next" : "Where it landed"}</span><p>${esc(x.left)}</p></div>
+    ${i < p.versions.length - 1 ? `<button class="vnext" data-next="${i + 1}">Next: ${p.versions[i + 1].v} →</button>` : ""}`;
+  panel.style.animation = "none"; void panel.offsetWidth; panel.style.animation = "";
+  const n = panel.querySelector(".vnext"); if (n) n.onclick = () => showVersion(p, +n.dataset.next);
 }
 function animateVisual(box){
   if (!box) return;
